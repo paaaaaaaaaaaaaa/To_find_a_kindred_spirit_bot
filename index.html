@@ -1,12 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Мое приложение</title>
-    <!-- Вот этот скрипт обязателен! -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Найди родственную душу</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключение Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-  Привет
+    <div id="app">
+        <!-- Экран свайпов (Поиск) -->
+        <section id="swipe-screen" class="screen active">
+            <h2>Поиск пары</h2>
+            <div class="card-container" id="card-container">
+                <!-- Карточки будут генерироваться через JS -->
+            </div>
+            <div class="action-buttons">
+                <button class="btn skip" onclick="swipeCard('left')">❌</button>
+                <button class="btn like" onclick="swipeCard('right')">💖</button>
+            </div>
+        </section>
+
+        <!-- Экран профиля и настроек -->
+        <section id="profile-screen" class="screen">
+            <h2>Мой профиль</h2>
+            <div class="profile-form">
+                <label>О себе:</label>
+                <input type="text" id="profile-name" placeholder="Ваше имя">
+                
+                <label>Интересы (Фильмы, Игры, Музыка и т.д.):</label>
+                <textarea id="profile-interests" placeholder="Например: Фантастика, Шахматы, Рок..."></textarea>
+                
+                <p style="font-size: 12px; color: gray;">*Контент 18+ запрещен</p>
+                <button class="btn save-btn" onclick="saveProfile()">Сохранить</button>
+            </div>
+        </section>
+
+        <!-- Экран мини-игр -->
+        <section id="games-screen" class="screen">
+            <h2>Мини-активности</h2>
+            <p>Найди напарника для игры:</p>
+            <div class="games-grid">
+                <button class="game-card" onclick="findGame('Шахматы')">♟️ Шахматы</button>
+                <button class="game-card" onclick="findGame('Дурак')">🃏 Дурак</button>
+                <button class="game-card" onclick="findGame('21')">🎲 21 (Блэкджек)</button>
+                <button class="game-card" onclick="findGame('Мафия')">🕵️ Мафия</button>
+            </div>
+            <div class="matchmaking-status" id="match-status"></div>
+        </section>
+
+        <!-- Экран чатов -->
+        <section id="chat-screen" class="screen">
+            <h2>Внутренний чат</h2>
+            <div class="chat-list">
+                <div class="chat-item">
+                    <div class="avatar">👤</div>
+                    <div class="chat-info">
+                        <h4>Анна</h4>
+                        <p>Привет! Видела, ты тоже любишь фантастику.</p>
+                    </div>
+                </div>
+                <div class="chat-item">
+                    <div class="avatar">👤</div>
+                    <div class="chat-info">
+                        <h4>Иван</h4>
+                        <p>Сыграем в шахматы?</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <button onclick="switchTab('swipe-screen')" class="nav-btn active" id="nav-swipe">💖</button>
+            <button onclick="switchTab('games-screen')" class="nav-btn" id="nav-games">🎮</button>
+            <button onclick="switchTab('chat-screen')" class="nav-btn" id="nav-chat">💬</button>
+            <button onclick="switchTab('profile-screen')" class="nav-btn" id="nav-profile">👤</button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
